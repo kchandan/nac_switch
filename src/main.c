@@ -2,30 +2,19 @@
 #include "local_include.h"
 #include "main.h"
 
-void* 
-test(void* arg)
-{
-	printf("%s\n\n",arg);
-	sleep(10);
-	while(1);
-	fprintf(stderr,"It should never reach here\n");
-}
+#define MODEM_INIT_CMD  "ats0=1\r\nat+ms=v32,0,4800,9600,4800,9600"
 
 int
 main(int argc, char* argv[])
 {
-	
-    int			    num[10]={0,1,2,3,4,5,6,7,8,9};
     int  			thread_return[10],
                     retval=0; 
     short           icount;
     int             hsf[8]={0};
-    
     unsigned char  modem_response[64]={0};
     char            *check;    
-    char            *modem_init_string="ats0=1\r\nat+ms=v32,0,4800,9600,4800,9600";
+    char            *modem_init_string=MODEM_INIT_CMD;
     pid_t           new_process;
-        
     
     load_config();
 	//init_thread_data();
@@ -52,17 +41,8 @@ main(int argc, char* argv[])
             fprintf(stderr,"No response from modem::%s",gmodem_name[icount]);
         }
     }
-    #if 0
-    for(icount=0;icount <8;icount++)
-    {/* Converting each file to be non-blocking type*/
-        retval=fcntl(hsf[icount],O_RDWR | O_NOCTTY | O_NDELAY);
-        if(retval<0)
-        {
-            perror("FCNTL:");
-        }
-    }
-    #endif
-    do
+    
+    for (;;)
     {
         for(icount=0;icount <8;icount++)
         {
@@ -78,15 +58,10 @@ main(int argc, char* argv[])
                         link_connect(hsf[icount]);
                     }
                     else
-                        continue;                    
-                    
+                        continue;
                 }
             }
         }
-    }while(1);
-    
-    
+    }
     return 0;
 }
-	
-		
