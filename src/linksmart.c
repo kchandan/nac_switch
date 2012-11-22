@@ -16,14 +16,14 @@
 void
 link_connect(int file)
 {
-    struct hostent 		    *he;
-    struct sockaddr_in 	    their_addr; 
-    fd_set 			            rfds;
+    struct hostent 		*he;
+    struct sockaddr_in 	    	their_addr; 
+    fd_set 			rfds;
     short                       server_port;
     int                         sockfd;
-    struct timeval 		    tv;
+    struct timeval 		tv;
     
-    unsigned char              read_buffer[2048],
+    unsigned char              	read_buffer[2048],
                                 write_buffer[2048];
     char                        *check,
                                 link_layer_connect=0;                            
