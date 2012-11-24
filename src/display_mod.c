@@ -81,7 +81,7 @@ inline void
 display_status(int ithread_id,int arg2,int imodem_state)
 {
     unsigned char       msg[64]={0};
-    static char		cprevious_error_flag; 
+    static char		    cprevious_error_flag; 
     move(MODEM_DISPLAY_Y,MODEM_DISPLAY_Y);
     attron(A_BOLD);
     attron(A_STANDOUT); 
